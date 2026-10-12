@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanshika Jain</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            
+            background-color: #0b0c10;
+            color: #e0e6ed;
+            line-height: 1.6;
+          
+        }
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 12, 18, 0.78);
+            backdrop-filter: blur(4px);
+            z-index: -1;
+        }
+        .navbar {
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center; 
+            padding: 18px 8%;
+            background: rgba(15, 17, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 100;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+        .logo span {
+            color: #64ffda;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #64ffda;
+        }
+        /* HERO SECTION */
+        .hero {
+            min-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .hero-tag {
+            color: #64ffda;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.2rem);
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 12px;
+            line-height: 1.15;
+        }
+        .hero h2 {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: #94a3b8;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            max-width: 620px;
+            font-size: 1.05rem;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        /* Reusable Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 26px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #64ffda;
+            color: #0b0c10;
+            border: 1px solid #64ffda;
+        }
+        .btn-primary:hover {
+            background-color: transparent;
+            color: #64ffda;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .btn-secondary:hover {
+            border-color: #64ffda;
+            color: #64ffda;
+            transform: translateY(-2px);
+        }
+        .hero-socials {
+            display: flex;
+            gap: 20px;
+        }
+        .hero-socials a {
+            color: #94a3b8;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+        }
+        .hero-socials a:hover {
+            color: #64ffda;
+            transform: translateY(-3px);
+        }
+        /*  4. REUSABLE SECTION STYLES  */
+        .section {
+            padding: 80px 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+        .section-header span {
+            color: #64ffda;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+        }
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: #ffffff;
+            margin-top: 5px;
+        }
+        /* Glassmorphism Card Template */
+        .glass-card {
+            background: rgba(20, 24, 33, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(100, 255, 218, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        /*  5. ABOUT SECTION */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+        .about-text p {
+            color: #cbd5e1;
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+        .about-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .detail-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border-left: 3px solid #64ffda;
+        }
+        .detail-item strong {
+            display: block;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+        .detail-item span {
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        /*  6. PROJECTS & ACHIEVEMENTS  */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        .project-card h3 {
+            color: #ffffff;
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        .project-card p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+        .project-meta {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .tech-pill {
+            background: rgba(100, 255, 218, 0.08);
+            color: #64ffda;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #64ffda;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: gap 0.2s ease;
+        }
+        .card-link:hover {
+            gap: 10px;
+            text-decoration: underline;
+        }
+        /*  7. SKILLS SECTION  */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .skill-category h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.15rem;
+            color: #ffffff;
+            margin-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 10px;
+        }
+        .skill-category h3 i {
+            color: #64ffda;
+        }
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        .skill-badge:hover {
+            border-color: #64ffda;
+            color: #64ffda;
+            background: rgba(100, 255, 218, 0.05);
+        }
+        /*  8. CONTACT SECTION  */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+        }
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .contact-card h4 {
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+        .contact-card a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .contact-card a:hover {
+            color: #64ffda;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px;
+            background: rgba(15, 17, 23, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #64ffda;
+        }
+        /* ================= 9. FOOTER ================= */
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(10, 12, 18, 0.9);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        /* Responsive Mobile Styles */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 5%;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .about-grid,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            .section {
+                padding: 60px 6%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Video Background & Soft Overlay -->
+    <video autoplay muted loop class="video-bg">
+        <source src="14471459_3840_2160_30fps.mp4" type="video/mp4">
+    </video>
+    <div class="bg-overlay"></div>
+
+    <!-- NAVBAR  -->
+    <header class="navbar">
+        <a href="#home" class="logo">Portfolio<span></span></a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+                     
+    <!--  HERO  -->
+    <section class="hero" id="home">
+        <h1>Vanshika Jain</h1>
+        <h2>CSE Student & Aspiring Software Developer</h2>
+        <p>
+            Building projects, exploring modern web technologies, and contributing to open-source software.
+        </p>
+        <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">
+                View My Work <i class="fa-solid fa-arrow-down"></i>
+            </a>
+            <a href="#contact" class="btn btn-primary">
+                Let's Talk <i class="fa-regular fa-paper-plane"></i>
+            </a>
+        </div>
+        <div class="hero-socials">
+            <a href="https://github.com/vanshikajain19" target="_blank" title="GitHub">
+                <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/vanshika-jain-ba740137b/" target="_blank" title="LinkedIn">
+                <i class="fa-brands fa-linkedin"></i>
+            </a>
+            <a href="mailto:jainvanshu19@gmail.com" title="Email">
+                <i class="fa-solid fa-envelope"></i>
+            </a>
+        </div>
+    </section>
+
+    <!--  ABOUT  -->
+    <section class="section" id="about">
+        <div class="section-header">
+            <span>Get to know me</span>
+            <h2>About Me</h2>
+        </div>
+        <div class="about-grid">
+            <div class="glass-card about-text">
+                <p>
+                    I am a Computer Science & Engineering student with a strong passion for software development and modern web technologies.
+                </p>
+                <p>
+                    I enjoy transforming ideas into functional web apps, mastering foundational programming concepts, and collaborating with developer communities through open source.
+                </p>
+                <div class="about-details">
+                    <div class="detail-item">
+                        <strong>Role</strong>
+                        <span>Aspiring Developer</span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Degree</strong>
+                        <span>B.Tech CSE</span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Location</strong>
+                        <span>India</span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Interest</strong>
+                        <span>Web & Open Source</span>
+                    </div>
+                </div>
+            </div>
+            <div class="glass-card">
+                <h3 style="color: #ffffff; margin-bottom: 12px;"><i class="fa-solid fa-graduation-cap" style="color: #64ffda;"></i> Education</h3>
+                <h4 style="color: #ffffff; font-size: 1.1rem;">B.Tech - Computer Science & Engineering</h4>
+                <p style="color: #94a3b8; margin: 4px 0 10px;">Arya College of Engineering & IT</p>
+                <span class="tech-pill">2025 - Present</span>
+            </div>
+        </div>
+    </section>
+
+    <!--  PROJECTS  -->
+    <section class="section" id="projects">
+        <div class="section-header">
+            <span>Showcase</span>
+            <h2>Projects</h2>
+        </div>
+        <div class="grid-container">
+            <!-- Project 1 -->
+            <div class="glass-card project-card">
+                <h3>Personal Portfolio</h3>
+                <p>A responsive, modern personal portfolio website built to present projects, achievements, and skillset.</p>
+                <p class="project-meta"><strong>Role:</strong> Design & Frontend Development</p>
+                <div class="tech-stack">
+                    <span class="tech-pill">HTML</span>
+                    <span class="tech-pill">CSS</span>
+                </div>
+                <a href="#home" class="card-link">Live View <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="glass-card project-card">
+                <h3>Open Source Contribution</h3>
+                <p>Fixed a timezone search dropdown UI behavior bug in an open-source web project during GirlScript Summer of Code.</p>
+                <p class="project-meta"><strong>Outcome:</strong> Pull Request approved & merged.</p>
+                <div class="tech-stack">
+                    <span class="tech-pill">HTML</span>
+                    <span class="tech-pill">CSS</span>
+                    <span class="tech-pill">JavaScript</span>
+                    <span class="tech-pill">Git</span>
+                </div>
+                <a href="https://github.com/dhairyagothi/100_days_100_web_project/pull/5573" target="_blank" class="card-link">
+                    View Merged Pull Request <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!--  ACHIEVEMENTS  -->
+    <section class="section" id="achievements">
+        <div class="section-header">
+            <span>Milestones</span>
+            <h2>Achievements</h2>
+        </div>
+        <div class="glass-card">
+            <h3 style="color: #ffffff; margin-bottom: 8px;"><i class="fa-solid fa-award" style="color: #64ffda; margin-right: 8px;"></i> GirlScript Summer of Code</h3>
+            <p style="color: #cbd5e1; margin-bottom: 12px;">
+                Successfully resolved a critical dropdown interaction bug in an open-source Digital Clock web project, leading to a verified merged pull request.
+            </p>
+            <a href="https://github.com/dhairyagothi/100_days_100_web_project/pull/5573" target="_blank" class="card-link">
+                View Merged Contribution <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+        </div>
+    </section>
+
+    <!--  SKILLS  -->
+    <section class="section" id="skills">
+        <div class="section-header">
+            <span>My Toolkit</span>
+            <h2>Technical Skills</h2>
+        </div>
+        <div class="skills-grid">
+            <div class="glass-card skill-category">
+                <h3><i class="fa-solid fa-code"></i> Programming</h3>
+                <div class="skill-list">
+                    <span class="skill-badge"><i class="fa-solid fa-terminal"></i> C</span>
+                    <span class="skill-badge"><i class="fa-solid fa-code"></i> C++</span>
+                </div>
+            </div>
+
+            <div class="glass-card skill-category">
+                <h3><i class="fa-solid fa-globe"></i> Web Technologies</h3>
+                <div class="skill-list">
+                    <span class="skill-badge"><i class="fa-brands fa-html5"></i> HTML</span>
+                    <span class="skill-badge"><i class="fa-brands fa-css3-alt"></i> CSS</span>
+                    <span class="skill-badge"><i class="fa-brands fa-js"></i> JavaScript</span>
+                </div>
+            </div>
+
+            <div class="glass-card skill-category">
+                <h3><i class="fa-solid fa-toolbox"></i> Tools & Platforms</h3>
+                <div class="skill-list">
+                    <span class="skill-badge"><i class="fa-brands fa-git-alt"></i> Git</span>
+                    <span class="skill-badge"><i class="fa-brands fa-github"></i> GitHub</span>
+                    <span class="skill-badge"><i class="fa-solid fa-laptop-code"></i> VS Code</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--  CONTACT  -->
+    <section class="section" id="contact">
+        <div class="section-header">
+            <span>Get in touch</span>
+            <h2>Let's Connect</h2>
+        </div>
+        <div class="contact-container">
+            <div class="glass-card">
+                <h3 style="color: #ffffff; margin-bottom: 12px;">Let's talk about projects or collaboration!</h3>
+                <p style="color: #94a3b8; margin-bottom: 25px;">
+                    Feel free to reach out for project collaboration, open-source work, or just to say hi.
+                </p>
+
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div>
+                        <h4>Email</h4>
+                        <a href="mailto:jainvanshu19@gmail.com">jainvanshu19@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fa-brands fa-linkedin"></i></div>
+                    <div>
+                        <h4>LinkedIn</h4>
+                        <a href="https://www.linkedin.com/in/vanshika-jain-ba740137b/" target="_blank">Connect on LinkedIn</a>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon"><i class="fa-brands fa-github"></i></div>
+                    <div>
+                        <h4>GitHub</h4>
+                        <a href="https://github.com/vanshikajain19" target="_blank">vanshikajain19</a>
+                    </div>
+                </div>
+            </div>
+
+            <form class="glass-card contact-form" onsubmit="event.preventDefault(); alert('Message sent!');">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="text" placeholder="Subject" required>
+                <textarea rows="4" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn btn-primary" style="justify-content: center;">
+                    Send Message <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!--  FOOTER  -->
+    <footer>
+        <p>© 2026 Vanshika Jain. Designed & built with HTML & CSS.</p>
+    </footer>
+
+</body>
+</html>
